@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#10241f" />
+  <meta name="description" content="Prototipo PWA para probar GPS, distancia, recorrido y pasos en Android." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIINfQ3WjMZqfQY1p1xJIpBqIY0R4JprzMY="
+    crossorigin=""
+  />
+  <title>Camilo Walk — GPS Test</title>
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <div class="eyebrow">PWA DE PRUEBA</div>
+      <h1>Camilo Walk</h1>
+    </div>
+    <button id="installBtn" class="ghost" hidden>Instalar</button>
+  </header>
+
+  <main>
+    <section class="status-card">
+      <div>
+        <span class="dot" id="gpsDot"></span>
+        <strong id="gpsStatus">GPS inactivo</strong>
+      </div>
+      <div class="small" id="accuracyText">Precisión: —</div>
+    </section>
+
+    <section class="stats">
+      <article class="card">
+        <span>Distancia</span>
+        <strong id="distance">0.00 km</strong>
+      </article>
+      <article class="card">
+        <span>Tiempo</span>
+        <strong id="duration">00:00:00</strong>
+      </article>
+      <article class="card">
+        <span>Velocidad</span>
+        <strong id="speed">0.0 km/h</strong>
+      </article>
+      <article class="card">
+        <span>Pasos aprox.</span>
+        <strong id="steps">0</strong>
+      </article>
+    </section>
+
+    <section class="actions">
+      <button id="startBtn" class="primary">Comenzar recorrido</button>
+      <button id="pauseBtn" class="secondary" disabled>Pausar</button>
+      <button id="stopBtn" class="danger" disabled>Finalizar</button>
+    </section>
+
+    <section class="card sensors">
+      <div class="sensor-row">
+        <div>
+          <strong>Contador por sensores</strong>
+          <div class="small">Experimental. Puede variar según el teléfono.</div>
+        </div>
+        <button id="sensorBtn" class="ghost">Activar</button>
+      </div>
+      <div class="sensor-reading"><span>Pasos sensor:</span><strong id="sensorSteps">0</strong></div>
+    </section>
+
+    <section class="map-wrap">
+      <div id="map"></div>
+      <div id="mapFallback" class="map-fallback" hidden>
+        No se pudo cargar el mapa. El GPS y la distancia pueden seguir funcionando.
+      </div>
+    </section>
+
+    <section class="card details">
+      <div><span>Latitud</span><strong id="lat">—</strong></div>
+      <div><span>Longitud</span><strong id="lng">—</strong></div>
+      <div><span>Altitud</span><strong id="alt">—</strong></div>
+      <div><span>Puntos GPS</span><strong id="points">0</strong></div>
+    </section>
+
+    <section class="card">
+      <div class="section-title">
+        <strong>Historial</strong>
+        <button id="clearHistoryBtn" class="ghost smallbtn">Borrar</button>
+      </div>
+      <div id="history" class="history-empty">Todavía no hay recorridos guardados.</div>
+    </section>
+
+    <section class="notice">
+      <strong>Para una prueba correcta:</strong>
+      <span>activa ubicación precisa, sal a un lugar abierto y deja que el GPS se estabilice unos segundos antes de caminar.</span>
+    </section>
+  </main>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin="">
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
