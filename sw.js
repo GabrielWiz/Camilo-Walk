@@ -1,5 +1,5 @@
 
-const CACHE = 'camilo-walk-v1';
+const CACHE = 'camilo-walk-v2';
 const CORE = ['./', './index.html', './styles.css', './app.js', './manifest.webmanifest', './icon.svg', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', event => {
