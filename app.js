@@ -16,6 +16,7 @@
   const STRIDE_M = 0.75;
   const MAX_ACCURACY_M = 45;
   const MAX_SPEED_MPS = 12;
+  const MIN_MOVING_SPEED_MPS = 0.3 / 3.6; // 0.3 km/h
   const MIN_MOVE_M = 2.5;
 
   let watchId = null;
@@ -143,7 +144,12 @@
     const computedSpeed = d / dt;
     const reliableSpeed = Number.isFinite(point.speed) && point.speed >= 0 ? point.speed : computedSpeed;
 
-    if (d >= MIN_MOVE_M && reliableSpeed <= MAX_SPEED_MPS) {
+    if (reliableSpeed < MIN_MOVING_SPEED_MPS) {
+      // Por debajo de 0.3 km/h consideramos que el usuario está quieto.
+      currentSpeedMps = 0;
+      lastAccepted = point;
+      renderStats();
+    } else if (d >= MIN_MOVE_M && reliableSpeed <= MAX_SPEED_MPS) {
       totalDistanceM += d;
       currentSpeedMps = reliableSpeed;
       lastAccepted = point;
@@ -152,6 +158,7 @@
       renderStats();
     } else if (d < MIN_MOVE_M) {
       currentSpeedMps = 0;
+      lastAccepted = point;
       renderStats();
     }
   }
